@@ -1,3 +1,3 @@
-# demo_firebase
+## SMAIT
 
 A new Flutter project.
