@@ -1,13 +1,13 @@
 import 'package:SMAIT_Technology/Const/Colors.dart';
 import 'package:SMAIT_Technology/Home/loginpage.dart';
-import 'package:SMAIT_Technology/login/signup.dart';
+import 'package:SMAIT_Technology/login/login.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
+class SignupScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  LoginScreen({super.key});
+  SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +18,10 @@ class LoginScreen extends StatelessWidget {
         height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/login.png'), // Path to your image
+            image: AssetImage('assets/images/signup.png'), // Path to your image
             fit: BoxFit.cover, // Makes image fill the entire screen
           ),
         ),
-        // child: Container(
-        //   decoration: BoxDecoration(
-        //     image: DecorationImage(
-        //       image: AssetImage('assets/images/login .png'),
-        //       fit: BoxFit.cover,
-        //     ),
-        //   ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Center(
@@ -39,12 +32,12 @@ class LoginScreen extends StatelessWidget {
                   //put image logo here
                   // Image.asset('assets/images/logo3.png', width: 400, height: 00),
                   // Icon(Icons.lock, size: 80, color: color),
-                  SizedBox(height: 10),
+                  SizedBox(height: 5),
                   // Text(
                   //   'Welcome',
                   //   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   // ),
-                  SizedBox(height: 40),
+                  SizedBox(height: 5),
 
                   // Email Field
                   TextField(
@@ -96,18 +89,15 @@ class LoginScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child: Text('Login', style: TextStyle(fontSize: 16)),
+                      child: Text('SignUp', style: TextStyle(fontSize: 16)),
                     ),
                   ),
-
-                  SizedBox(height: 15),
-                  TextButton(onPressed: () {}, child: Text('Forgot Password?')),
-                  SizedBox(height: 15),
+                  SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Don't have an account? ",
+                        "Already have an account? ",
                         style: TextStyle(fontSize: 16),
                       ),
                       GestureDetector(
@@ -115,12 +105,12 @@ class LoginScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SignupScreen(),
+                              builder: (context) => LoginScreen(),
                             ),
                           );
                         },
                         child: Text(
-                          "Sign Up",
+                          "Login",
                           style: TextStyle(
                             fontSize: 16,
                             color: color,

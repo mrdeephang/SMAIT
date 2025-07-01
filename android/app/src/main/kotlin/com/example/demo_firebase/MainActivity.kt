@@ -1,4 +1,4 @@
-package com.example.demo_firebase
+package com.example.smait
 
 import io.flutter.embedding.android.FlutterActivity
 
