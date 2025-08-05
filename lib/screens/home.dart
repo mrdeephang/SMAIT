@@ -9,9 +9,11 @@ class Home extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<Home> {
+  final GlobalKey<ScaffoldState> scafolfKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scafolfKey,
       appBar: AppBar(
         title: Text(
           'SMAIT',
@@ -23,16 +25,20 @@ class _LoginScreenState extends State<Home> {
         ),
         backgroundColor: Colors.blue,
         centerTitle: true,
-        leading: Builder(
-          builder: (context) {
-            return IconButton(
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              icon: Icon(Icons.menu, color: Colors.white),
-            );
-          },
+        leading: IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.menu, color: Colors.white),
         ),
+        // leading: Builder(
+        //   builder: (context) {
+        //     return IconButton(
+        //       onPressed: () {
+        //         Scaffold.of(context).openDrawer();
+        //       },
+        //       icon: Icon(Icons.menu, color: Colors.white),
+        //     );
+        //   },
+        // ),
         actions: [Icon(Icons.settings, color: Colors.white)],
         actionsPadding: EdgeInsets.all(15),
       ),
@@ -46,7 +52,6 @@ class _LoginScreenState extends State<Home> {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
             ),
           ),
-        
         ],
       ),
       floatingActionButton: FloatingActionButton(
