@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "621286694030",
+    "project_id": "smait-3bd28",
+    "storage_bucket": "smait-3bd28.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621286694030:android:0a1cd1da60528677c27ddf",
+        "android_client_info": {
+          "package_name": "com.example.smait"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAp5IqKwcUye6XQC_kWtlA-a36vadoqF48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

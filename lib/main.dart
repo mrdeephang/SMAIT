@@ -1,7 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:smait/firebase_options.dart';
 import 'package:smait/splashes/initialsplash.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MyApp());
 }
 
@@ -14,7 +18,7 @@ class MyApp extends StatelessWidget {
       home: Splash(),
       debugShowCheckedModeBanner: true,
       title: 'SMAIT',
-      theme: ThemeData(fontFamily: "poppins"),
+      theme: ThemeData(fontFamily: "Poppins"),
     );
   }
 }

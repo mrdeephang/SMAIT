@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smait/custom/customdrawer.dart';
+import 'package:smait/services/auth_services.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -9,11 +11,30 @@ class Home extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<Home> {
-  final GlobalKey<ScaffoldState> scafolfKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scafolfdKey = GlobalKey<ScaffoldState>();
+  final AuthService authService = AuthService();
+  String? name;
+  String? email;
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  void loadData() async {
+    String? fetchedName = await authService.getUserName();
+    String? fetchedEmail = FirebaseAuth.instance.currentUser?.email;
+    setState(() {
+      name = fetchedName ?? "User";
+      email = fetchedEmail ?? "No email";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scafolfKey,
+      key: scafolfdKey,
       appBar: AppBar(
         title: Text(
           'SMAIT',
@@ -26,34 +47,16 @@ class _LoginScreenState extends State<Home> {
         backgroundColor: Colors.blue,
         centerTitle: true,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            scafolfdKey.currentState?.openDrawer();
+          },
           icon: Icon(Icons.menu, color: Colors.white),
         ),
-        // leading: Builder(
-        //   builder: (context) {
-        //     return IconButton(
-        //       onPressed: () {
-        //         Scaffold.of(context).openDrawer();
-        //       },
-        //       icon: Icon(Icons.menu, color: Colors.white),
-        //     );
-        //   },
-        // ),
         actions: [Icon(Icons.settings, color: Colors.white)],
         actionsPadding: EdgeInsets.all(15),
       ),
-      drawer: Customdrawer(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Align(
-            child: Text(
-              'Welcome, Deephang!',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
-            ),
-          ),
-        ],
-      ),
+      drawer: Customdrawer(name: name!, email: email!),
+      body: Center(child: Text("Welcome")),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
         onPressed: () => showModalBottomSheet(

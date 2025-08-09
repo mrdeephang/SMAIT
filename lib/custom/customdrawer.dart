@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:smait/screens/login.dart';
 
 class Customdrawer extends StatefulWidget {
-  const Customdrawer({super.key});
+  final String name;
+  final String email;
+  const Customdrawer({super.key, required this.name, required this.email});
 
   @override
   State<Customdrawer> createState() => _CustomdrawerState();
@@ -19,29 +21,17 @@ class _CustomdrawerState extends State<Customdrawer> {
               gradient: LinearGradient(colors: [Colors.blue, Colors.black]),
             ),
             accountName: Text(
-              "",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              widget.name,
+              style: TextStyle(color: Colors.white, fontSize: 18),
             ),
             accountEmail: Text(
-              ' Welcome',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              widget.email,
+              style: TextStyle(color: Colors.white, fontSize: 16),
             ),
-            currentAccountPicture: Icon(
-              Icons.waving_hand,
-              size: 90,
-              color: Colors.white,
+
+            currentAccountPicture: CircleAvatar(
+              backgroundImage: AssetImage('assets/images/pfp.png'),
             ),
-            // currentAccountPicture: CircleAvatar(
-            //   backgroundImage: AssetImage('assets/images/pfp.jpg'),
-            // ),
           ),
           GestureDetector(
             onTap: () {

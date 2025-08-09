@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smait/screens/forgotpassword.dart';
 import 'package:smait/screens/home.dart';
 import 'package:smait/screens/signup.dart';
+import 'package:smait/services/auth_services.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,8 +13,29 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordContrller = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   bool _obscureText = true;
+  final authService = AuthService();
+  void handleLogin() async {
+    String? result = await authService.login(
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+    );
+    try {
+      if (result == null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Home()),
+        );
+      } else {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(result)));
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$e')));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 10),
                 TextFormField(
                   obscureText: _obscureText,
-                  controller: passwordContrller,
+                  controller: passwordController,
                   decoration: InputDecoration(
                     fillColor: Colors.blue,
                     filled: false,
@@ -80,38 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 20),
                 GestureDetector(
-                  onTap: () {
-                    if (emailController.text == 'thoklihang.deep@gmail.com' &&
-                        passwordContrller.text == '123456') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Home()),
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor: Colors.red,
-                          content: Text(
-                            'Invalid email or password',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          duration: Duration(milliseconds: 800),
-                          behavior: SnackBarBehavior.fixed,
-                          elevation: 2.0,
-                          action: SnackBarAction(
-                            textColor: Colors.white,
-
-                            label: 'Ok',
-                            onPressed: () => Navigator.pop(context),
-                          ),
-                        ),
-                      );
-                    }
-                  },
+                  onTap: () => handleLogin(),
                   child: Container(
                     padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
                     decoration: BoxDecoration(

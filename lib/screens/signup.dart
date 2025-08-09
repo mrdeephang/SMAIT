@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smait/screens/home.dart';
 import 'package:smait/screens/login.dart';
+import 'package:smait/services/auth_services.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -10,10 +10,30 @@ class SignUp extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<SignUp> {
+  final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordContrller = TextEditingController();
-
-  get positioned => null;
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  final authService = AuthService();
+  void handleSignup() async {
+    String? result = await authService.signUp(
+      fullName: fullNameController.text.trim(),
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+      confirmPassword: confirmPasswordController.text.trim(),
+    );
+    if (result == null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(result)));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +52,7 @@ class _LoginScreenState extends State<SignUp> {
               children: [
                 SizedBox(height: 60),
                 TextFormField(
-                  controller: emailController,
+                  controller: fullNameController,
                   decoration: InputDecoration(
                     fillColor: Colors.blue,
                     filled: false,
@@ -75,7 +95,7 @@ class _LoginScreenState extends State<SignUp> {
                 SizedBox(height: 10),
                 TextFormField(
                   obscureText: true,
-                  controller: passwordContrller,
+                  controller: passwordController,
                   decoration: InputDecoration(
                     fillColor: Colors.blue,
                     filled: false,
@@ -97,7 +117,7 @@ class _LoginScreenState extends State<SignUp> {
                 SizedBox(height: 20),
                 TextFormField(
                   obscureText: true,
-                  controller: passwordContrller,
+                  controller: confirmPasswordController,
                   decoration: InputDecoration(
                     fillColor: Colors.blue,
                     filled: false,
@@ -118,12 +138,7 @@ class _LoginScreenState extends State<SignUp> {
                 ),
                 SizedBox(height: 20),
                 GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Home()),
-                    );
-                  },
+                  onTap: () => handleSignup(),
                   child: Container(
                     padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
                     decoration: BoxDecoration(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smait/screens/login.dart';
+import 'package:smait/services/auth_services.dart';
 
 class Forgotpassword extends StatefulWidget {
   const Forgotpassword({super.key});
@@ -9,8 +10,28 @@ class Forgotpassword extends StatefulWidget {
 }
 
 class _ForgotpasswordState extends State<Forgotpassword> {
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController newpasswordContrller = TextEditingController();
+  final TextEditingController currentPasswordController =
+      TextEditingController();
+  final TextEditingController newPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  final authService = AuthService();
+  void handleChangePassword() async {
+    String? result = await authService.changePassword(
+      currentPassword: currentPasswordController.text.trim(),
+      newPassword: newPasswordController.text.trim(),
+      confirmPassword: confirmPasswordController.text.trim(),
+    );
+    if (result == null) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Password updated successfully")));
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(result)));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +47,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextFormField(
-                  controller: passwordController,
+                  controller: currentPasswordController,
                   decoration: InputDecoration(
                     fillColor: Colors.blue,
                     filled: false,
@@ -48,7 +69,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                 SizedBox(height: 10),
                 TextFormField(
                   obscureText: true,
-                  controller: newpasswordContrller,
+                  controller: newPasswordController,
                   decoration: InputDecoration(
                     fillColor: Colors.blue,
                     filled: false,
@@ -70,7 +91,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                 SizedBox(height: 10),
                 TextFormField(
                   obscureText: true,
-                  controller: newpasswordContrller,
+                  controller: confirmPasswordController,
                   decoration: InputDecoration(
                     fillColor: Colors.blue,
                     filled: false,
